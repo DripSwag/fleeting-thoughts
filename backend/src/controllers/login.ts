@@ -1,16 +1,22 @@
 import { Request, Response } from "express";
-import { getUser } from "../services/login";
+import { createUser } from "../services/login";
+
+interface PostBody {
+  username: string;
+  password: string;
+}
 
 export async function put(req: Request, res: Response) {
   try {
-    const user = await getUser("test", "test");
-    res.json(user);
+    console.log(req.body);
+    res.json("login");
   } catch {
     res.json({ message: "error" });
   }
 }
 
-export function post(req: Request, res: Response) {
-  console.log(req.body);
-  res.json(req.body);
+export async function post(req: Request, res: Response) {
+  const body: PostBody = req.body;
+  const response = await createUser(body.username, body.password);
+  res.json(response);
 }
