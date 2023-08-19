@@ -5,8 +5,12 @@
     "lib": ["es6"],
     "allowJs": true,
     "outDir": "build",
+    "moduleResolution": "Node",
     "rootDir": "src",
     "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "resolveJsonModule": true
