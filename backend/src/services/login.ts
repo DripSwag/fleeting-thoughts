@@ -1,6 +1,6 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from '.prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export async function createUser(username: string, password: string) {
   const response = await prisma.user.create({
@@ -8,6 +8,6 @@ export async function createUser(username: string, password: string) {
       username,
       password,
     },
-  });
-  return response;
+  })
+  return response
 }
