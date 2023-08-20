@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import * as login from '../controllers/login'
+import * as controller from '../controllers/login'
 
 const loginRouter = Router()
 
-loginRouter.put('/', login.put)
-loginRouter.post('/', login.post)
+loginRouter.put('/', controller.put)
+loginRouter.post('/', controller.post)
 
 export default loginRouter
