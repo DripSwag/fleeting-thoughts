@@ -8,7 +8,7 @@ interface UserResponse {
 }
 
 async function login(username: string, password: string): Promise<Response> {
-  const response = fetch('http://localhost:8001/login', {
+  const response = fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/login', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -30,6 +30,8 @@ export default function Home() {
       const body: UserResponse = await response.json()
       sessionStorage.setItem('userId', body.id.toString())
       router.push('/homepage')
+    } else {
+      console.log('Error or incorrect')
     }
   }
 

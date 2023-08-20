@@ -15,8 +15,11 @@ export async function get(
   res: Response,
 ) {
   const response = await getThoughts(parseInt(req.params.userId))
-  console.log(response)
-  res.json('get')
+  if (response) {
+    res.json(response)
+  } else {
+    res.status(204).end()
+  }
 }
 
 export async function post(req: Request, res: Response) {
