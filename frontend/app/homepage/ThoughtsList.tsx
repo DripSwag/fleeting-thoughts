@@ -19,9 +19,10 @@ export default function ThoughtsList() {
   async function getThoughts() {
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_ORIGIN +
-        '/thought/' +
+        '/thought/user/' +
         sessionStorage.getItem('userId'),
     )
+    console.log(response)
     if (response.status === 200) {
       const body: ThoughtsBody = await response.json()
       setThoughts(body.thoughts)
@@ -40,13 +41,6 @@ export default function ThoughtsList() {
         thoughts.map(value => {
           return <Thought key={value.id} text={value.text} id={value.id} />
         })}
-      <button
-        onClick={() => {
-          console.log(thoughts)
-        }}
-      >
-        Test
-      </button>
     </section>
   )
 }

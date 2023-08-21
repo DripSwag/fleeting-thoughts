@@ -3,7 +3,9 @@ import * as controller from '../controllers/thought'
 
 const thoughtRouter = Router()
 
-thoughtRouter.get('/:userId', controller.get)
+thoughtRouter.get('/user/:userId', controller.getUser)
+thoughtRouter.get('/:thoughtId', controller.getThought)
 thoughtRouter.post('/', controller.post)
+thoughtRouter.put('/', controller.put)
 
 export default thoughtRouter

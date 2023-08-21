@@ -12,7 +12,7 @@ export async function createThought(text: string, userId: number) {
   return response
 }
 
-export async function getThoughts(userId: number) {
+export async function getUsersThoughts(userId: number) {
   const response = await prisma.user.findFirst({
     where: { id: userId },
     select: {
@@ -20,6 +20,18 @@ export async function getThoughts(userId: number) {
       password: false,
       id: false,
       thoughts: true,
+    },
+  })
+  return response
+}
+
+export async function getThought(thoughtId: number) {
+  const response = await prisma.thought.findFirst({
+    where: { id: thoughtId },
+    select: {
+      id: false,
+      userId: false,
+      text: true,
     },
   })
   return response
