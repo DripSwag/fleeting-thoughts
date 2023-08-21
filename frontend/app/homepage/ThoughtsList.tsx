@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Thought from './Thought'
 
 interface Thought {
   id: number
@@ -37,7 +38,7 @@ export default function ThoughtsList() {
     <section>
       {thoughts &&
         thoughts.map(value => {
-          return <div key={value.id}>{value.text}</div>
+          return <Thought key={value.id} text={value.text} id={value.id} />
         })}
       <button
         onClick={() => {
