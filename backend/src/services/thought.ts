@@ -36,3 +36,16 @@ export async function getThought(thoughtId: number) {
   })
   return response
 }
+
+export async function putThought(id: number, text: string) {
+  const response = await prisma.thought.update({
+    where: {
+      id,
+    },
+    data: {
+      text,
+    },
+  })
+
+  return response
+}

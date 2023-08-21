@@ -50,10 +50,17 @@ export async function post(req: Request, res: Response) {
 }
 
 interface PutBody {
-  postId: number
+  id: number
   text: string
 }
 
 export async function put(req: Request, res: Response) {
   const body: PutBody = req.body
+  const response = await services.putThought(body.id, body.text)
+  console.log(response)
+  if (response) {
+    res.json(response)
+  } else {
+    res.status(400).json('bad')
+  }
 }
