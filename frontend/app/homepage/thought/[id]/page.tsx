@@ -1,25 +1,28 @@
-'use client'
+import TextEditor from './TextEditor'
 
 interface Params {
-  id: Number
+  id: String
+}
+
+interface Thought {
+  text: String
 }
 
 async function getThought(id: String) {
   const response = await fetch(
     process.env.NEXT_PUBLIC_API_ORIGIN + '/thought/' + id,
   )
-  console.log(await response.json())
+  return response.json()
 }
 
-export default function Thought({ params }: { params: Params }) {
-  function handleClick() {
-    getThought(params.id.toString())
-  }
+export default async function Thought({ params }: { params: Params }) {
+  const thought: Thought = await getThought(params.id)
+  console.log(thought)
 
   return (
     <main>
       <h1>Thought {params.id.toString()}</h1>
-      <button onClick={handleClick}>Test</button>
+      <TextEditor text={thought.text} />
     </main>
   )
 }
