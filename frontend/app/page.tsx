@@ -2,6 +2,7 @@
 
 import { useRouter } from '@/node_modules/next/navigation'
 import { FormEvent, useState } from 'react'
+import Cookies from 'js-cookie'
 
 interface UserResponse {
   id: number
@@ -28,7 +29,7 @@ export default function Home() {
     const response = await login(username, password)
     if (response.status === 200) {
       const body: UserResponse = await response.json()
-      sessionStorage.setItem('userId', body.id.toString())
+      Cookies.set('userId', body.id.toString())
       router.push('/homepage')
     } else {
       console.log('Error or incorrect')

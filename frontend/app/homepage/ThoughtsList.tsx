@@ -1,5 +1,6 @@
 'use client'
 
+import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 import Thought from './Thought'
 
@@ -20,7 +21,7 @@ export default function ThoughtsList() {
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_ORIGIN +
         '/thought/user/' +
-        sessionStorage.getItem('userId'),
+        Cookies.get('userId'),
     )
     console.log(response)
     if (response.status === 200) {
