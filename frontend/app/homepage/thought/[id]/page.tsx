@@ -1,3 +1,4 @@
+import { TagsList } from './TagsList'
 import TextEditor from './TextEditor'
 
 interface Params {
@@ -25,6 +26,7 @@ export default async function Thought({ params }: { params: Params }) {
     <main className='w-screen h-screen'>
       <div className='relative left-1/2 -translate-x-1/2 w-full max-w-4xl h-full flex flex-col'>
         <h1 className='w-max'>Thought {params.id.toString()}</h1>
+        <TagsList thoughtId={params.id} />
         <TextEditor text={thought.text} thoughtId={params.id} />
       </div>
     </main>
