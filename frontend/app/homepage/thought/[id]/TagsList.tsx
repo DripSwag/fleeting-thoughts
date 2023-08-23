@@ -9,7 +9,7 @@ interface Tag {
   tag: { name: string }
 }
 
-async function test(id: string) {
+async function getTags(id: string) {
   const response = await fetch(
     process.env.NEXT_PUBLIC_API_ORIGIN + '/tag/thought/' + id,
   )
@@ -17,13 +17,14 @@ async function test(id: string) {
 }
 
 export async function TagsList({ thoughtId }: Params) {
-  const response: Array<Tag> = await test(thoughtId)
-
-  console.log(response)
+  const tags: Array<Tag> = await getTags(thoughtId)
 
   return (
     <div>
-      <Tag />
+      {tags &&
+        tags.map(value => {
+          return <Tag key={value.id} id={value.id} name={value.tag.name} />
+        })}
     </div>
   )
 }

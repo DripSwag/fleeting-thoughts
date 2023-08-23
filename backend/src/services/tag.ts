@@ -19,3 +19,20 @@ export async function getThoughtTags(thoughtId: number) {
 
   return response
 }
+
+export async function put(id: number, name: string) {
+  const response = await prisma.thoughtTag.update({
+    where: {
+      id,
+    },
+    data: {
+      tag: {
+        update: {
+          name,
+        },
+      },
+    },
+  })
+
+  return response
+}

@@ -5,16 +5,29 @@ interface UrlParams {
   id: string
 }
 
-export async function getUser(
+export async function getThought(
   req: Request<any, any, any, UrlParams>,
   res: Response,
 ) {
-  console.log(parseInt(req.params.id))
   const response = await services.getThoughtTags(parseInt(req.params.id))
-  console.log(response)
   if (response !== undefined) {
     res.json(response)
   } else {
     res.status(204).end()
+  }
+}
+
+interface putBody {
+  id: number
+  name: string
+}
+
+export async function put(req: Request, res: Response) {
+  const body: putBody = req.body
+  const response = await services.put(body.id, body.name)
+  if (response !== undefined) {
+    res.json(response)
+  } else {
+    res.status(201).end()
   }
 }
