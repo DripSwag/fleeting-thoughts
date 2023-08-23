@@ -31,3 +31,18 @@ export async function put(req: Request, res: Response) {
     res.status(201).end()
   }
 }
+
+interface deleteBody {
+  id: number
+}
+
+//delete is reservered by something
+export async function del(req: Request, res: Response) {
+  const body: deleteBody = req.body
+  try {
+    const response = await services.del(body.id)
+    res.json(response)
+  } catch (e) {
+    res.status(204).end()
+  }
+}

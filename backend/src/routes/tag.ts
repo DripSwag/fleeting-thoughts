@@ -5,5 +5,6 @@ const tagRouter = Router()
 
 tagRouter.get('/thought/:id', controller.getThought)
 tagRouter.patch('/', controller.put)
+tagRouter.delete('/', controller.del)
 
 export default tagRouter

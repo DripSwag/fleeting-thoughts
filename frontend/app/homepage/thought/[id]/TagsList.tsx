@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Tag } from './Tag'
 
 interface Params {
@@ -9,15 +12,22 @@ interface Tag {
   tag: { name: string }
 }
 
-async function getTags(id: string) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/tag/thought/' + id,
-  )
-  return response.json()
-}
+export function TagsList({ thoughtId }: Params) {
+  const [tags, setTags] = useState<Array<Tag>>([])
 
-export async function TagsList({ thoughtId }: Params) {
-  const tags: Array<Tag> = await getTags(thoughtId)
+  async function getTags() {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_ORIGIN + '/tag/thought/' + thoughtId,
+    )
+    if (response.status === 200) {
+      const body: Array<Tag> = await response.json()
+      setTags(body)
+    }
+  }
+
+  useEffect(() => {
+    getTags()
+  }, [])
 
   return (
     <div>

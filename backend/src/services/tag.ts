@@ -36,3 +36,13 @@ export async function put(id: number, name: string) {
 
   return response
 }
+
+export async function del(id: number) {
+  const deleteThoughtTag = await prisma.thoughtTag.delete({
+    where: {
+      id,
+    },
+  })
+
+  return deleteThoughtTag
+}

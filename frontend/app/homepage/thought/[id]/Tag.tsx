@@ -18,6 +18,18 @@ async function patchTag(id: number, name: string) {
   return response
 }
 
+async function deleteTag(id: number) {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  })
+
+  return response
+}
+
 export function Tag({ id, name }: Params) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState(name)
@@ -27,15 +39,23 @@ export function Tag({ id, name }: Params) {
     inputRef.current?.focus()
   }
 
-  async function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key == 'Enter') {
       inputRef.current?.blur()
+    }
+  }
+
+  async function handleBlur() {
+    if (value) {
       const response = await patchTag(id, value)
       if (response.status === 200) {
         console.log('saved')
       } else {
         console.log('failed')
       }
+    } else {
+      const response = await deleteTag(id)
+      console.log(response)
     }
   }
 
@@ -55,6 +75,7 @@ export function Tag({ id, name }: Params) {
           setValue(event.target.value)
           setWidth(event.target.value.length)
         }}
+        onBlur={handleBlur}
         type='text'
         onFocus={event =>
           event.currentTarget.setSelectionRange(
