@@ -46,3 +46,19 @@ export async function del(req: Request, res: Response) {
     res.status(204).end()
   }
 }
+
+interface postBody {
+  name: string
+  userId: number
+  thoughtId: number
+}
+
+export async function post(req: Request, res: Response) {
+  const body: postBody = req.body
+  try {
+    const response = await services.post(body.name, body.userId, body.thoughtId)
+    res.json(response)
+  } catch (e) {
+    res.status(400).end()
+  }
+}
