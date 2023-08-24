@@ -1,34 +1,16 @@
 'use client'
 
-import Cookies from 'js-cookie'
 import { useCallback, useEffect, useState } from 'react'
 import NewTag from './NewTag'
 import { Tag } from './Tag'
 
-interface Tag {
+export interface Tag {
   id: number
   tag: { name: string }
 }
 
-async function postTag(name: string, userId: number, thoughtId: number) {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, userId, thoughtId }),
-  })
-
-  return await response.json()
-}
-
 interface Params {
   thoughtId: string
-}
-
-interface NewTag {
-  name: string
-  thoughtTags: Array<{ id: number }>
 }
 
 export function TagsList({ thoughtId }: Params) {
@@ -45,22 +27,10 @@ export function TagsList({ thoughtId }: Params) {
     }
   }
 
-  const handleNewTagBlur = useCallback(
-    async (name: string) => {
-      if (name) {
-        const response: NewTag = await postTag(
-          name,
-          parseInt(Cookies.get('userId') || '0'),
-          parseInt(thoughtId),
-        )
-        if (response) {
-          //this is dumb
-          const parsedResponse: Tag = {
-            id: response.thoughtTags[0].id,
-            tag: { name: response.name },
-          }
-          setTags([...tags, parsedResponse])
-        }
+  const addTag = useCallback(
+    (newTag: Tag) => {
+      if (newTag) {
+        setTags([...tags, newTag])
       }
       setNewTag(false)
     },
@@ -77,7 +47,7 @@ export function TagsList({ thoughtId }: Params) {
         tags.map(value => {
           return <Tag key={value.id} id={value.id} name={value.tag.name} />
         })}
-      {newTag && <NewTag handleBlur={handleNewTagBlur} />}
+      {newTag && <NewTag thoughtId={thoughtId} addTag={addTag} />}
       <div
         className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer text-center'
         onClick={() => {

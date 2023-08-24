@@ -53,11 +53,29 @@ interface postBody {
   thoughtId: number
 }
 
+interface NewTag {
+  name: string
+  thoughtTags: Array<{ id: number }>
+}
+
+interface Tag {
+  id: number
+  tag: { name: string }
+}
+
 export async function post(req: Request, res: Response) {
   const body: postBody = req.body
   try {
-    const response = await services.post(body.name, body.userId, body.thoughtId)
-    res.json(response)
+    const response: NewTag = await services.post(
+      body.name,
+      body.userId,
+      body.thoughtId,
+    )
+    const parsedResponse: Tag = {
+      id: response.thoughtTags[0].id,
+      tag: { name: response.name },
+    }
+    res.json(parsedResponse)
   } catch (e) {
     res.status(400).end()
   }
