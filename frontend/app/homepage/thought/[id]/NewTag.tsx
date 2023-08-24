@@ -19,9 +19,10 @@ async function temp(name: string, userId: number, thoughtId: number) {
 interface Params {
   thoughtId: string
   addTag: Function
+  hideSelf: Function
 }
 
-export default function NewTag({ thoughtId, addTag }: Params) {
+export default function NewTag({ thoughtId, addTag, hideSelf }: Params) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState('')
   const [length, setLength] = useState(0)
@@ -38,6 +39,8 @@ export default function NewTag({ thoughtId, addTag }: Params) {
       } catch {
         addTag()
       }
+    } else {
+      hideSelf()
     }
   }
 

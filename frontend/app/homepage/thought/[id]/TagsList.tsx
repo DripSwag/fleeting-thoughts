@@ -47,6 +47,10 @@ export function TagsList({ thoughtId }: Params) {
     [tags],
   )
 
+  const hideNewTag = useCallback(() => {
+    setNewTag(false)
+  }, [newTag])
+
   useEffect(() => {
     getTags()
   }, [])
@@ -65,7 +69,9 @@ export function TagsList({ thoughtId }: Params) {
             />
           )
         })}
-      {newTag && <NewTag thoughtId={thoughtId} addTag={addTag} />}
+      {newTag && (
+        <NewTag thoughtId={thoughtId} addTag={addTag} hideSelf={hideNewTag} />
+      )}
       <div
         className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer text-center'
         onClick={() => {
