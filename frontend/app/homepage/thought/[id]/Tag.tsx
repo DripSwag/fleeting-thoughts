@@ -2,11 +2,6 @@
 
 import { useRef, useState } from 'react'
 
-interface Params {
-  id: number
-  name: string
-}
-
 async function patchTag(id: number, name: string) {
   const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
     method: 'PATCH',
@@ -18,7 +13,7 @@ async function patchTag(id: number, name: string) {
   return response
 }
 
-async function deleteTag(id: number) {
+async function deleteTagServer(id: number) {
   const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
     method: 'DELETE',
     headers: {
@@ -30,7 +25,14 @@ async function deleteTag(id: number) {
   return response
 }
 
-export function Tag({ id, name }: Params) {
+interface Params {
+  id: number
+  name: string
+  index: number
+  removeTag: Function
+}
+
+export function Tag({ id, name, index, removeTag }: Params) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState(name)
   const [width, setWidth] = useState(name.length)
@@ -45,6 +47,14 @@ export function Tag({ id, name }: Params) {
     }
   }
 
+  async function deleteTag() {
+    const response = await deleteTagServer(id)
+    if (response.status === 200) {
+      removeTag(index)
+    }
+    console.log(response)
+  }
+
   async function handleBlur() {
     if (value) {
       const response = await patchTag(id, value)
@@ -54,21 +64,20 @@ export function Tag({ id, name }: Params) {
         console.log('failed')
       }
     } else {
-      const response = await deleteTag(id)
-      console.log(response)
+      deleteTag()
     }
   }
 
   return (
     <div
-      className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer'
+      className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer flex items-center gap-1'
       onClick={() => {
         handleClick()
       }}
     >
       <input
-        style={{ width: width + 'ch' }}
-        className='outline-none text-center'
+        style={{ width: width ? width + 'ch' : '2ch' }}
+        className='outline-none text-center hover:cursor-pointer'
         ref={inputRef}
         value={value}
         onChange={event => {
@@ -83,6 +92,7 @@ export function Tag({ id, name }: Params) {
             event.currentTarget.value.length,
           )
         }
+        maxLength={20}
         onKeyDown={handleKeyDown}
       ></input>
     </div>

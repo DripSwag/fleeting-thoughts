@@ -37,15 +37,33 @@ export function TagsList({ thoughtId }: Params) {
     [tags, newTag],
   )
 
+  const removeTag = useCallback(
+    (indexPop: number) => {
+      const filtered = tags.filter((value, index) => {
+        return index != indexPop
+      })
+      setTags(filtered)
+    },
+    [tags],
+  )
+
   useEffect(() => {
     getTags()
   }, [])
 
   return (
-    <div className='flex items-center py-2'>
+    <div className='flex items-center py-2 gap-2'>
       {tags &&
-        tags.map(value => {
-          return <Tag key={value.id} id={value.id} name={value.tag.name} />
+        tags.map((value, index) => {
+          return (
+            <Tag
+              key={value.id}
+              id={value.id}
+              name={value.tag.name}
+              index={index}
+              removeTag={removeTag}
+            />
+          )
         })}
       {newTag && <NewTag thoughtId={thoughtId} addTag={addTag} />}
       <div
