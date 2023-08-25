@@ -37,7 +37,7 @@ export default function TextEditor({ text, thoughtId }: Params) {
 
   return (
     <textarea
-      className='w-full h-full resize-none'
+      className='w-full h-full resize-none grow bg-background text-lg outline-none '
       //@ts-ignore literals moment
       value={textValue}
       onChange={event => {

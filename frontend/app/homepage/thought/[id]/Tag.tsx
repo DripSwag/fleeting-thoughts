@@ -77,7 +77,7 @@ export function Tag({ id, name, index, removeTag }: Params) {
     >
       <input
         style={{ width: width ? width + 'ch' : '2ch' }}
-        className='outline-none text-center hover:cursor-pointer'
+        className='outline-none text-center hover:cursor-pointer bg-background'
         ref={inputRef}
         value={value}
         onChange={event => {

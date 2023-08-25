@@ -59,7 +59,7 @@ export default function NewTag({ thoughtId, addTag, hideSelf }: Params) {
       <input
         ref={inputRef}
         style={{ width: length ? length + 'ch' : '2ch' }}
-        className='text-center'
+        className='text-center bg-background'
         value={value}
         placeholder='...'
         onBlur={() => {
