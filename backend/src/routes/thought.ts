@@ -7,5 +7,6 @@ thoughtRouter.get('/user/:userId', controller.getUser)
 thoughtRouter.get('/:thoughtId', controller.getThought)
 thoughtRouter.post('/', controller.post)
 thoughtRouter.put('/', controller.put)
+thoughtRouter.patch('/', controller.patch)
 
 export default thoughtRouter

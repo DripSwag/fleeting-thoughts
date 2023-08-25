@@ -2,10 +2,9 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function createThought(text: string, userId: number) {
+export async function createThought(userId: number) {
   const response = await prisma.thought.create({
     data: {
-      text,
       userId,
     },
   })
@@ -32,6 +31,7 @@ export async function getThought(thoughtId: number) {
       id: false,
       userId: false,
       text: true,
+      title: true,
     },
   })
   return response
@@ -44,6 +44,19 @@ export async function putThought(id: number, text: string) {
     },
     data: {
       text,
+    },
+  })
+
+  return response
+}
+
+export async function patch(id: number, title: string) {
+  const response = await prisma.thought.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
     },
   })
 

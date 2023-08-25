@@ -28,19 +28,19 @@ export async function getThought(
   const response = await services.getThought(parseInt(req.params.thoughtId))
   if (response) {
     res.json(response)
+    console.log(response)
   } else {
     res.status(204).end()
   }
 }
 
 interface PostBody {
-  text: string
   userId: number
 }
 
 export async function post(req: Request, res: Response) {
   const body: PostBody = req.body
-  const response = await services.createThought(body.text, body.userId)
+  const response = await services.createThought(body.userId)
   console.log(response)
   if (response) {
     res.json(response)
@@ -62,5 +62,20 @@ export async function put(req: Request, res: Response) {
     res.json(response)
   } else {
     res.status(400).json('bad')
+  }
+}
+
+interface PatchBody {
+  id: number
+  title: string
+}
+
+export async function patch(req: Request, res: Response) {
+  const body: PatchBody = req.body
+  const response = await services.patch(body.id, body.title)
+  if (response) {
+    res.json(response)
+  } else {
+    res.status(400).end()
   }
 }

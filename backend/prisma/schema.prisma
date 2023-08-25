@@ -24,6 +24,7 @@ model Thought {
   user        User         @relation(fields: [userId], references: [id])
   userId      Int
   text        String?      @db.VarChar(1000)
+  title String? @db.VarChar(50)
   thoughtTags ThoughtTag[]
 }
 
