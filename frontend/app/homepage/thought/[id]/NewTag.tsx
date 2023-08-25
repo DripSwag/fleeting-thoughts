@@ -44,6 +44,12 @@ export default function NewTag({ thoughtId, addTag, hideSelf }: Params) {
     }
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key == 'Enter') {
+      inputRef.current?.blur()
+    }
+  }
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
@@ -63,6 +69,7 @@ export default function NewTag({ thoughtId, addTag, hideSelf }: Params) {
           setValue(event.currentTarget.value)
           setLength(event.currentTarget.value.length)
         }}
+        onKeyDown={handleKeyDown}
       ></input>
     </div>
   )
