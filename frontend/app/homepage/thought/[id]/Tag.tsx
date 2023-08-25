@@ -70,7 +70,7 @@ export function Tag({ id, name, index, removeTag }: Params) {
 
   return (
     <div
-      className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer flex items-center gap-1'
+      className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer flex items-center'
       onClick={() => {
         handleClick()
       }}
@@ -95,6 +95,19 @@ export function Tag({ id, name, index, removeTag }: Params) {
         maxLength={20}
         onKeyDown={handleKeyDown}
       ></input>
+      <button
+        onClick={deleteTag}
+        className='text-sm text-neutral-400 hover:text-neutral-600 text-center'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          className='h-4 aspect-square hover:fill-neutral-700'
+          viewBox='0 0 24 24'
+          data-darkreader-inline-fill=''
+        >
+          <path d='m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z'></path>
+        </svg>
+      </button>
     </div>
   )
 }
