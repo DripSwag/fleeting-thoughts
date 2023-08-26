@@ -7,7 +7,8 @@ import Thought from './Thought'
 interface Thought {
   id: number
   userId: number
-  text: string
+  text: string | null
+  title: string | null
 }
 
 interface ThoughtsBody {
@@ -16,6 +17,8 @@ interface ThoughtsBody {
 
 export default function ThoughtsList() {
   const [thoughts, setThoughts] = useState<Array<Thought>>([])
+
+  console.log(thoughts)
 
   async function getThoughts() {
     const response = await fetch(
@@ -37,10 +40,17 @@ export default function ThoughtsList() {
   }, [])
 
   return (
-    <section>
+    <section className='grid grid-cols-3 gap-4 w-full'>
       {thoughts &&
         thoughts.map(value => {
-          return <Thought key={value.id} text={value.text} id={value.id} />
+          return (
+            <Thought
+              key={value.id}
+              title={value.title}
+              id={value.id}
+              text={value.text}
+            />
+          )
         })}
     </section>
   )
