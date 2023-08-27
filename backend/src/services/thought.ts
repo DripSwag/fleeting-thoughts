@@ -62,3 +62,13 @@ export async function patch(id: number, title: string) {
 
   return response
 }
+
+export async function del(id: number) {
+  const response = await prisma.thought.delete({
+    where: {
+      id,
+    },
+  })
+
+  return response
+}

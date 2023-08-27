@@ -1,11 +1,8 @@
 import Link from '@/node_modules/next/link'
+import RemoveThought from './RemoveThought'
 import { TagsList } from './TagsList'
 import TextEditor from './TextEditor'
 import Title from './Title'
-
-interface Params {
-  id: string
-}
 
 interface Thought {
   text: string | null
@@ -23,6 +20,10 @@ async function getThought(id: String) {
   return response.json()
 }
 
+interface Params {
+  id: string
+}
+
 export default async function Thought({ params }: { params: Params }) {
   const thought: Thought = await getThought(params.id)
 
@@ -32,12 +33,15 @@ export default async function Thought({ params }: { params: Params }) {
         <div className='flex flex-col gap-4'>
           <div className='w-full h-min flex items-center'>
             <Title title={thought.title} thoughtId={params.id} />
-            <Link
-              href='/homepage '
-              className='bg-primary h-full px-6 rounded-lg h-full py-3 justify-self-end ml-auto'
-            >
-              Homepage
-            </Link>
+            <div className='ml-auto flex items-center gap-4'>
+              <RemoveThought id={params.id} />
+              <Link
+                href='/homepage '
+                className='bg-primary h-full px-6 rounded-lg h-full py-3'
+              >
+                Homepage
+              </Link>
+            </div>
           </div>
           <TagsList thoughtId={params.id} />
         </div>

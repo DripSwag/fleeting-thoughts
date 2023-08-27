@@ -79,3 +79,20 @@ export async function patch(req: Request, res: Response) {
     res.status(400).end()
   }
 }
+
+interface DeleteRequest {
+  id: string
+}
+
+export async function del(
+  req: Request<any, any, any, DeleteRequest>,
+  res: Response,
+) {
+  console.log(parseInt(req.params.id))
+  const response = await services.del(parseInt(req.params.id))
+  if (response) {
+    res.json(response)
+  } else {
+    res.status(400).end()
+  }
+}
