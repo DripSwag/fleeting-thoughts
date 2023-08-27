@@ -8,8 +8,8 @@ interface Params {
 }
 
 interface Thought {
-  text: string
-  title: string
+  text: string | null
+  title: string | null
 }
 
 async function getThought(id: String) {
@@ -19,6 +19,7 @@ async function getThought(id: String) {
       cache: 'no-store',
     },
   )
+
   return response.json()
 }
 

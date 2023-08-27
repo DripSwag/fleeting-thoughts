@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 
 interface Params {
-  text: string
-  thoughtId: string
+  text: string | null
+  thoughtId: string | null
 }
 
 async function putNewText(text: string, id: number) {
@@ -22,11 +22,11 @@ async function putNewText(text: string, id: number) {
 }
 
 export default function TextEditor({ text, thoughtId }: Params) {
-  const [textValue, setTextValue] = useState(text)
+  const [textValue, setTextValue] = useState<string>(text || '')
 
   useEffect(() => {
     let timer = setTimeout(() => {
-      putNewText(textValue, parseInt(thoughtId))
+      putNewText(textValue || '', parseInt(thoughtId || ''))
       console.log('saved')
     }, 1000)
 
