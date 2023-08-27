@@ -7,7 +7,7 @@ interface Params {
 export default function Thoght({ title, id, text }: Params) {
   return (
     <a href={'/homepage/thought/' + id.toString()}>
-      <div className='bg-neutral-700 rounded-lg p-4 bg-[#d1d9d0]'>
+      <div className='rounded-lg p-4 bg-[#d1d9d0]'>
         <h1 className='text-xl font-medium'>{title || 'No title'}</h1>
         <p>{text}</p>
       </div>

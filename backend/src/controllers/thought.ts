@@ -40,7 +40,7 @@ interface PostBody {
 
 export async function post(req: Request, res: Response) {
   const body: PostBody = req.body
-  const response = await services.createThought(body.userId)
+  const response = await services.post(body.userId)
   console.log(response)
   if (response) {
     res.json(response)

@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function createThought(userId: number) {
+export async function post(userId: number) {
   const response = await prisma.thought.create({
     data: {
       userId,

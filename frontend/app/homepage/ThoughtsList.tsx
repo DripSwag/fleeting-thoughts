@@ -1,10 +1,11 @@
 'use client'
 
 import Cookies from 'js-cookie'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import AddThought from './AddThought'
 import Thought from './Thought'
 
-interface Thought {
+export interface Thought {
   id: number
   userId: number
   text: string | null
@@ -18,15 +19,12 @@ interface ThoughtsBody {
 export default function ThoughtsList() {
   const [thoughts, setThoughts] = useState<Array<Thought>>([])
 
-  console.log(thoughts)
-
   async function getThoughts() {
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_ORIGIN +
         '/thought/user/' +
         Cookies.get('userId'),
     )
-    console.log(response)
     if (response.status === 200) {
       const body: ThoughtsBody = await response.json()
       setThoughts(body.thoughts)
@@ -34,6 +32,13 @@ export default function ThoughtsList() {
       setThoughts([])
     }
   }
+
+  const addThought = useCallback(
+    (newThought: Thought) => {
+      setThoughts([...thoughts, newThought])
+    },
+    [thoughts],
+  )
 
   useEffect(() => {
     getThoughts()
@@ -52,6 +57,7 @@ export default function ThoughtsList() {
             />
           )
         })}
+      <AddThought addThought={addThought} />
     </section>
   )
 }
