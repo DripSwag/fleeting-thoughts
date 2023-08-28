@@ -3,13 +3,18 @@ import * as services from '../services/thought'
 
 interface UrlParams {
   userId: string
+  tags: string | undefined
 }
 
 export async function getUser(
   req: Request<any, any, any, UrlParams>,
   res: Response,
 ) {
-  const response = await services.getUsersThoughts(parseInt(req.params.userId))
+  const tags = req.query.tags?.split(',') || undefined
+  const response = await services.getUsersThoughts(
+    parseInt(req.params.userId),
+    tags,
+  )
   if (response) {
     res.json(response)
   } else {

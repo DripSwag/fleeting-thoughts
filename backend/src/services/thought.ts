@@ -11,17 +11,40 @@ export async function post(userId: number) {
   return response
 }
 
-export async function getUsersThoughts(userId: number) {
-  const response = await prisma.user.findFirst({
-    where: { id: userId },
-    select: {
-      username: false,
-      password: false,
-      id: false,
-      thoughts: true,
-    },
-  })
-  return response
+export async function getUsersThoughts(
+  userId: number,
+  tags: undefined | Array<string>,
+) {
+  if (tags) {
+    const response = await prisma.thought.findMany({
+      where: {
+        thoughtTags: {
+          some: {
+            OR: tags.map(value => {
+              return {
+                tag: {
+                  name: value,
+                },
+              }
+            }),
+          },
+        },
+      },
+    })
+
+    return { thoughts: response }
+  } else {
+    const response = await prisma.user.findFirst({
+      where: { id: userId },
+      select: {
+        username: false,
+        password: false,
+        id: false,
+        thoughts: true,
+      },
+    })
+    return response
+  }
 }
 
 export async function getThought(thoughtId: number) {
