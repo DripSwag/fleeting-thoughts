@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import stringToColour from '@/scripts/stringToColour'
 
 async function patchTag(id: number, name: string) {
   const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
@@ -23,6 +24,11 @@ async function deleteTagServer(id: number) {
   })
 
   return response
+}
+
+function getColour(name: string) {
+  const hexCode = stringToColour(name)
+  return { color: hexCode, borderColor: hexCode }
 }
 
 interface Params {
@@ -70,10 +76,11 @@ export function Tag({ id, name, index, removeTag }: Params) {
 
   return (
     <div
-      className='border-2 rounded-[16px] w-fit px-2 hover:cursor-pointer flex items-center'
+      className='border rounded-[16px] w-fit px-2 hover:cursor-pointer flex items-center'
       onClick={() => {
         handleClick()
       }}
+      style={getColour(name)}
     >
       <input
         style={{ width: width ? width + 'ch' : '2ch' }}

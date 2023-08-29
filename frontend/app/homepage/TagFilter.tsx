@@ -22,7 +22,7 @@ export default function TagFilter({ tags, addTag, removeTag }: Params) {
   }
 
   return (
-    <div className='my-2 p-2 flex border-2 gap-2'>
+    <div className='my-2 p-2 flex border-2 gap-2 flex-wrap'>
       {tags &&
         tags.map((value, index) => {
           return (
@@ -37,7 +37,7 @@ export default function TagFilter({ tags, addTag, removeTag }: Params) {
         })}
       <input
         ref={inputRef}
-        className='w-full bg-background'
+        className='w-max grow bg-background outline-none whitespace-normal'
         placeholder='Add a tag...'
         onKeyDown={handleKeyDown}
       ></input>
