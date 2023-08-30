@@ -8,16 +8,10 @@ interface Params {
 }
 
 async function putNewText(text: string, id: number) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/thought',
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: text, id: id }),
-    },
-  )
+  const response = await fetch('/api/thought', {
+    method: 'PUT',
+    body: JSON.stringify({ text: text, id: id }),
+  })
   return response
 }
 

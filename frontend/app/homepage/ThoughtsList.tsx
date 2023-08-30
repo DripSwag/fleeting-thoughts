@@ -7,12 +7,9 @@ import TagFilter from './TagFilter'
 import Thought from './Thought'
 
 async function getThoughtsDatabase(tags: Array<string>) {
-  const queryString: string = tags.length > 0 ? '?tags=' + tags.toString() : ''
+  const queryString: string = tags.length > 0 ? '&tags=' + tags.toString() : ''
   const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN +
-      '/thought/user/' +
-      Cookies.get('userId') +
-      queryString,
+    'api/homepage' + `?userId=${Cookies.get('userId') || '0'}` + queryString,
   )
 
   return response

@@ -4,16 +4,13 @@ import Cookies from 'js-cookie'
 import { Thought } from './ThoughtsList'
 
 async function postThought(userId: number) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/thought',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId }),
+  const response = await fetch('api/homepage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify({ userId }),
+  })
 
   return response.json()
 }

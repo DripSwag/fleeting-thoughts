@@ -8,17 +8,6 @@ interface UserResponse {
   id: number
 }
 
-async function login(username: string, password: string): Promise<Response> {
-  const response = fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/login', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username: username, password: password }),
-  })
-  return response
-}
-
 export default function Home() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -26,7 +15,10 @@ export default function Home() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const response = await login(username, password)
+    const response = await fetch('/api', {
+      method: 'PUT',
+      body: JSON.stringify({ username: username, password: password }),
+    })
     if (response.status === 200) {
       const body: UserResponse = await response.json()
       Cookies.set('userId', body.id.toString())

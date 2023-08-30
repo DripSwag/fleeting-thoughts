@@ -3,15 +3,9 @@
 import { useRouter } from '@/node_modules/next/navigation'
 
 export async function deleteThought(id: string) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/thought/' + id,
-    {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-  )
+  const response = await fetch('/api/thought?id=' + id, {
+    method: 'DELETE',
+  })
 
   return response
 }

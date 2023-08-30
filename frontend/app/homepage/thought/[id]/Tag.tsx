@@ -4,22 +4,16 @@ import { useRef, useState } from 'react'
 import stringToColour from '@/scripts/stringToColour'
 
 async function patchTag(id: number, name: string) {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
+  const response = await fetch('/api/tag', {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ id, name }),
   })
   return response
 }
 
 async function deleteTagServer(id: number) {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
+  const response = await fetch('/api/tag', {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ id }),
   })
 

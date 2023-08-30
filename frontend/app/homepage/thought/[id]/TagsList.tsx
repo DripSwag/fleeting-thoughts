@@ -18,9 +18,7 @@ export function TagsList({ thoughtId }: Params) {
   const [newTag, setNewTag] = useState(false)
 
   async function getTags() {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_ORIGIN + '/tag/thought/' + thoughtId,
-    )
+    const response = await fetch('/api/tag?id=' + thoughtId)
     if (response.status === 200) {
       const body: Array<Tag> = await response.json()
       setTags(body)

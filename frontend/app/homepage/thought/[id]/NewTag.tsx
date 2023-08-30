@@ -4,12 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import Cookies from 'js-cookie'
 import { Tag } from './TagsList'
 
-async function temp(name: string, userId: number, thoughtId: number) {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/tag', {
+async function postTag(name: string, userId: number, thoughtId: number) {
+  const response = await fetch('/api/tag', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ name, userId, thoughtId }),
   })
 
@@ -30,7 +27,7 @@ export default function NewTag({ thoughtId, addTag, hideSelf }: Params) {
   async function handleBlur() {
     if (value) {
       try {
-        const response: Tag = await temp(
+        const response: Tag = await postTag(
           value,
           parseInt(Cookies.get('userId') || '0'),
           parseInt(thoughtId),

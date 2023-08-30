@@ -1,4 +1,5 @@
 import Link from '@/node_modules/next/link'
+import Cookies from 'js-cookie'
 import RemoveThought from './RemoveThought'
 import { TagsList } from './TagsList'
 import TextEditor from './TextEditor'
@@ -10,14 +11,16 @@ interface Thought {
 }
 
 async function getThought(id: String) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/thought/' + id,
-    {
-      cache: 'no-store',
-    },
-  )
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/api/thought?id=' + id
+      : 'https://' + process.env.VERCEL_URL + '/api/thought?id=' + id
+  const response = await fetch(url, {
+    cache: 'no-store',
+  })
 
-  return response.json()
+  const temp = await response.json()
+  return temp
 }
 
 interface Params {

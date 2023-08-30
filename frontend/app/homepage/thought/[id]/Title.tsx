@@ -3,16 +3,10 @@
 import { FormEvent, useRef } from 'react'
 
 async function updateTitle(title: string | null, id: number) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_API_ORIGIN + '/thought',
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, id }),
-    },
-  )
+  const response = await fetch('/api/thought', {
+    method: 'PATCH',
+    body: JSON.stringify({ title, id }),
+  })
 
   return response
 }
