@@ -1,5 +1,4 @@
 import Link from '@/node_modules/next/link'
-import Cookies from 'js-cookie'
 import RemoveThought from './RemoveThought'
 import { TagsList } from './TagsList'
 import TextEditor from './TextEditor'

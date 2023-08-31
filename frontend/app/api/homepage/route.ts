@@ -5,7 +5,11 @@ export async function GET(request: Request) {
   const response = await fetch(
     process.env.API_ORIGIN +
       '/thought/user/' +
-      url.searchParams.get('userId') || '0' + queryString,
+      (url.searchParams.get('userId') || '0') +
+      queryString,
+    {
+      cache: 'no-store',
+    },
   )
   return response
 }
