@@ -3,19 +3,24 @@ import RemoveThought from './RemoveThought'
 import { TagsList } from './TagsList'
 import TextEditor from './TextEditor'
 import Title from './Title'
+import { cookies } from '@/node_modules/next/headers'
 
 interface Thought {
   text: string | null
   title: string | null
 }
 
-async function getThought(id: String) {
+async function getThought(id: String, ssid: string, userId: string) {
   const url =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/api/thought?id=' + id
       : 'https://' + process.env.VERCEL_URL + '/api/thought?id=' + id
   const response = await fetch(url, {
     cache: 'no-store',
+    headers: {
+      ssid,
+      userId,
+    },
   })
 
   const temp = await response.json()
@@ -27,7 +32,12 @@ interface Params {
 }
 
 export default async function Thought({ params }: { params: Params }) {
-  const thought: Thought = await getThought(params.id)
+  const cookieStore = cookies()
+  const thought: Thought = await getThought(
+    params.id,
+    cookieStore.get('ssid')?.value,
+    cookieStore.get('userId')?.value,
+  )
 
   return (
     <main className='w-screen min-h-screen bg-background'>

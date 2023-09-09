@@ -33,7 +33,6 @@ export async function getThought(
   const response = await services.getThought(parseInt(req.params.thoughtId))
   if (response) {
     res.json(response)
-    console.log(response)
   } else {
     res.status(204).end()
   }
@@ -46,7 +45,6 @@ interface PostBody {
 export async function post(req: Request, res: Response) {
   const body: PostBody = req.body
   const response = await services.post(body.userId)
-  console.log(response)
   if (response) {
     res.json(response)
   } else {

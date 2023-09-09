@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { createUser, getUser } from '../services/login'
+import { createUser, login } from '../services/login'
 
 interface PostBody {
   username: string
@@ -9,7 +9,8 @@ interface PostBody {
 export async function put(req: Request, res: Response) {
   try {
     const body: PostBody = req.body
-    const response = await getUser(body.username, body.password)
+    const response = await login(body.username, body.password)
+    console.log(response)
     if (response) {
       res.status(200).json(response)
     } else {

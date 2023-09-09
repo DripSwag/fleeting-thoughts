@@ -6,6 +6,11 @@ import Cookies from 'js-cookie'
 
 interface UserResponse {
   id: number
+  token: {
+    id: string
+    expireDate: string
+    createDate: string
+  }
 }
 
 export default function Home() {
@@ -20,11 +25,7 @@ export default function Home() {
       body: JSON.stringify({ username: username, password: password }),
     })
     if (response.status === 200) {
-      const body: UserResponse = await response.json()
-      Cookies.set('userId', body.id.toString())
       router.push('/homepage')
-    } else {
-      console.log('Error or incorrect')
     }
   }
 
