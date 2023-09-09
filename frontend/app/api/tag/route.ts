@@ -36,7 +36,7 @@ export async function DELETE(request: Request) {
   const body = await request.json()
   const cookieStore = cookies()
   const response = await fetch(process.env.API_ORIGIN + '/tag', {
-    method: 'PATCH',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       ssid: cookieStore.get('ssid')?.value,
