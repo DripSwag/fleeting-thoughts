@@ -3,6 +3,7 @@ import loginRouter from './routes/login'
 import cors from 'cors'
 import thoughtRouter from './routes/thought'
 import tagRouter from './routes/tag'
+import verifyRouter from './routes/verify'
 
 const app = express()
 const port = 8001
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 app.use('/login', loginRouter)
 app.use('/thought', thoughtRouter)
 app.use('/tag', tagRouter)
+app.use('/verify', verifyRouter)
 
 app.listen(port, () => {
   console.log('running')

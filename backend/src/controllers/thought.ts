@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { thoughtUser } from '../services/middleware'
 import * as services from '../services/thought'
 
 interface UrlParams {
@@ -98,4 +99,14 @@ export async function del(
   } else {
     res.status(400).end()
   }
+}
+
+export async function ThoughtUser(req: Request, res: Response) {
+  const ssid = req.get('ssid')
+  const thoughtId = req.get('thoughtId')
+  if (ssid && thoughtId) {
+    const response = await thoughtUser(ssid, thoughtId)
+    response ? res.status(200).end() : res.status(401).end()
+  }
+  res.status(401).end()
 }
