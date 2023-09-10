@@ -10,7 +10,10 @@ export async function SsidCheck(
   const userId = req.get('userId')
   if (ssid && userId) {
     const response = await services.ssid(ssid)
-    if (response?.userId === parseInt(userId)) {
+    if (
+      response?.userId === parseInt(userId) &&
+      new Date() < new Date(response.expireDate)
+    ) {
       next()
     } else {
       res.status(401).end()

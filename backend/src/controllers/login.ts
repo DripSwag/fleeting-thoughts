@@ -10,7 +10,6 @@ export async function put(req: Request, res: Response) {
   try {
     const body: PostBody = req.body
     const response = await login(body.username, body.password)
-    console.log(response)
     if (response) {
       res.status(200).json(response)
     } else {

@@ -1,7 +1,6 @@
 import { cookies } from '@/node_modules/next/headers'
 
 export async function GET(request: Request) {
-  const cookieStore = cookies()
   const url = new URL(request.url)
   const response = await fetch(
     process.env.API_ORIGIN + '/thought/' + url.searchParams.get('id') || '0',

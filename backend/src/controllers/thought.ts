@@ -61,7 +61,6 @@ interface PutBody {
 export async function put(req: Request, res: Response) {
   const body: PutBody = req.body
   const response = await services.putThought(body.id, body.text)
-  console.log(response)
   if (response) {
     res.json(response)
   } else {
@@ -92,7 +91,6 @@ export async function del(
   req: Request<any, any, any, DeleteRequest>,
   res: Response,
 ) {
-  console.log(parseInt(req.params.id))
   const response = await services.del(parseInt(req.params.id))
   if (response) {
     res.json(response)
