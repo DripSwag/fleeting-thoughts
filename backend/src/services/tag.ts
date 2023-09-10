@@ -48,6 +48,7 @@ export async function del(id: number) {
 }
 
 export async function post(name: string, userId: number, thoughtId: number) {
+  /*
   const response = await prisma.tag.create({
     data: {
       name,
@@ -63,6 +64,36 @@ export async function post(name: string, userId: number, thoughtId: number) {
       thoughtTags: {
         select: {
           id: true,
+        },
+      },
+    },
+  })
+  */
+
+  const response = await prisma.thoughtTag.create({
+    data: {
+      thought: {
+        connect: {
+          id: thoughtId,
+        },
+      },
+      tag: {
+        connectOrCreate: {
+          where: {
+            name,
+          },
+          create: {
+            userId: userId,
+            name,
+          },
+        },
+      },
+    },
+    select: {
+      tagId: true,
+      tag: {
+        select: {
+          name: true,
         },
       },
     },
