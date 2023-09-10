@@ -74,7 +74,7 @@ export function Tag({ id, name, index, removeTag }: Params) {
       onClick={() => {
         handleClick()
       }}
-      style={getColour(name)}
+      style={getColour(value)}
     >
       <input
         style={{ width: width ? width + 'ch' : '2ch' }}

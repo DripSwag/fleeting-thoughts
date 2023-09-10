@@ -27,8 +27,14 @@ export async function put(id: number, name: string) {
     },
     data: {
       tag: {
-        update: {
-          name,
+        connectOrCreate: {
+          where: {
+            name,
+          },
+          create: {
+            userId: 1,
+            name,
+          },
         },
       },
     },
@@ -48,28 +54,6 @@ export async function del(id: number) {
 }
 
 export async function post(name: string, userId: number, thoughtId: number) {
-  /*
-  const response = await prisma.tag.create({
-    data: {
-      name,
-      userId,
-      thoughtTags: {
-        create: {
-          thoughtId,
-        },
-      },
-    },
-    select: {
-      name: true,
-      thoughtTags: {
-        select: {
-          id: true,
-        },
-      },
-    },
-  })
-  */
-
   const response = await prisma.thoughtTag.create({
     data: {
       thought: {

@@ -71,7 +71,6 @@ export async function post(req: Request, res: Response) {
       id: response.tagId,
       tag: { name: response.tag.name },
     }
-    console.log(parsedResponse)
     res.json(parsedResponse)
   } catch (e) {
     res.status(400).end()
