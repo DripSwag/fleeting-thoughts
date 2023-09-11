@@ -1,4 +1,5 @@
 import { PrismaClient } from '.prisma/client'
+import { SHA256 } from 'crypto-js'
 
 const prisma = new PrismaClient()
 
@@ -6,7 +7,7 @@ export async function createUser(username: string, password: string) {
   const response = await prisma.user.create({
     data: {
       username,
-      password,
+      password: SHA256(password).toString(),
     },
   })
   return response
@@ -14,7 +15,6 @@ export async function createUser(username: string, password: string) {
 
 export async function login(username: string, password: string) {
   const user = await getUser(username, password)
-  console.log(user)
   if (user) {
     const currentTime = new Date(Date.now() + 4 * 60 * 60 * 1000)
     const response = await prisma.session.create({
@@ -36,7 +36,7 @@ async function getUser(username: string, password: string) {
   const response = await prisma.user.findFirst({
     where: {
       username,
-      password,
+      password: SHA256(password).toString(),
     },
     select: {
       id: true,

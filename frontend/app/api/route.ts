@@ -18,18 +18,19 @@ interface DetailsBody {
 
 const url =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
+    ? process.env.API_ORIGIN
     : 'https://' + process.env.VERCEL_URL
 
 export async function PUT(request: Request) {
   const body: RequestBody = await request.json()
-  const response = await fetch(process.env.API_ORIGIN + '/login', {
+  const response = await fetch(url + '/login', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
   })
+  console.log(response)
   if (response.status === 200) {
     const cookieStore = cookies()
     const details: DetailsBody = await response.json()
@@ -38,5 +39,9 @@ export async function PUT(request: Request) {
     })
     cookieStore.set('userId', details.id)
     return NextResponse.json(details)
+  } else if (response.status === 204) {
+    return new Response(null, { status: 204 })
+  } else {
+    return NextResponse.json({ Message: 'error' }, { status: 500 })
   }
 }

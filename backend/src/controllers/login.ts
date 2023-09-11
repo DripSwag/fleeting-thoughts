@@ -23,5 +23,5 @@ export async function put(req: Request, res: Response) {
 export async function post(req: Request, res: Response) {
   const body: PostBody = req.body
   const response = await createUser(body.username, body.password)
-  res.json(response)
+  res.status(201).json(response)
 }
