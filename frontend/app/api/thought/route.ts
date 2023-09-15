@@ -25,8 +25,8 @@ export async function DELETE(request: Request) {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        ssid: cookieStore.get('ssid')?.value,
-        userId: cookieStore.get('userId')?.value,
+        ssid: cookieStore.get('ssid')?.value || '',
+        userId: cookieStore.get('userId')?.value || '',
       },
     },
   )
@@ -41,8 +41,8 @@ export async function PUT(request: Request) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      ssid: cookieStore.get('ssid')?.value,
-      userId: cookieStore.get('userId')?.value,
+      ssid: cookieStore.get('ssid')?.value || '',
+      userId: cookieStore.get('userId')?.value || '',
     },
     body: JSON.stringify(body),
   })
@@ -57,8 +57,8 @@ export async function PATCH(request: Request) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      ssid: cookieStore.get('ssid')?.value,
-      userId: cookieStore.get('userId')?.value,
+      ssid: cookieStore.get('ssid')?.value || '',
+      userId: cookieStore.get('userId')?.value || '',
     },
     body: JSON.stringify(body),
   })

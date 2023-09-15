@@ -13,7 +13,7 @@ export default function Thoght({ title, id, text }: Params) {
         <h1 className='text-xl font-medium'>{title || 'No title'}</h1>
         <p className='whitespace-pre-wrap'>
           {text?.substring(0, LEGNTH)}
-          {text?.length > 50 ? '...' : ''}
+          {text?.length || 0 > 50 ? '...' : ''}
         </p>
       </div>
     </a>

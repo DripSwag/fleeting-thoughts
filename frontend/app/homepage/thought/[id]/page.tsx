@@ -35,8 +35,8 @@ export default async function Thought({ params }: { params: Params }) {
   const cookieStore = cookies()
   const thought: Thought = await getThought(
     params.id,
-    cookieStore.get('ssid')?.value,
-    cookieStore.get('userId')?.value,
+    cookieStore.get('ssid')?.value || '',
+    cookieStore.get('userId')?.value || '',
   )
 
   return (

@@ -37,7 +37,7 @@ export async function PUT(request: Request) {
     cookieStore.set('ssid', details.token.id, {
       expires: Date.parse(details.token.expireDate),
     })
-    cookieStore.set('userId', details.id)
+    cookieStore.set('userId', details.id.toString())
     return NextResponse.json(details)
   } else if (response.status === 204) {
     return new Response(null, { status: 204 })

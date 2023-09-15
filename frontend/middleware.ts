@@ -5,7 +5,7 @@ export default async function middleware(request: NextRequest) {
     const thoughtId = request.nextUrl.pathname.match(/\d+/g)?.at(0) || ''
     const response = await fetch(process.env.API_ORIGIN + '/verify/thought', {
       headers: {
-        ssid: request.cookies.get('ssid')?.value,
+        ssid: request.cookies.get('ssid')?.value || '',
         thoughtId,
       },
     })

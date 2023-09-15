@@ -13,8 +13,8 @@ export async function GET(request: Request) {
     {
       cache: 'no-store',
       headers: {
-        ssid: cookieStore.get('ssid')?.value,
-        userId: cookieStore.get('userId')?.value,
+        ssid: cookieStore.get('ssid')?.value || '',
+        userId: cookieStore.get('userId')?.value || '',
       },
     },
   )
@@ -28,8 +28,8 @@ export async function POST(request: Request) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      ssid: cookieStore.get('ssid')?.value,
-      userId: cookieStore.get('userId')?.value,
+      ssid: cookieStore.get('ssid')?.value || '',
+      userId: cookieStore.get('userId')?.value || '',
     },
     body: JSON.stringify(body),
   })
