@@ -2,6 +2,8 @@
 
 import { useRouter } from '@/node_modules/next/navigation'
 import { FormEvent, useState } from 'react'
+import PasswordIcon from './PasswordIcon'
+import UserIcon from './UserIcon'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
@@ -22,24 +24,34 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='string'
-        required
-        className='border-2'
-        onChange={event => {
-          setUsername(event.currentTarget.value)
-        }}
-      ></input>
-      <input
-        type='password'
-        required
-        className='border-2'
-        onChange={event => {
-          setPassword(event.currentTarget.value)
-        }}
-      ></input>
-      <button type='submit'>Login</button>
+    <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
+      <div className='p-4 rounded-lg focus-within:drop-shadow-lg border-2 bg-white flex gap-2'>
+        <UserIcon />
+        <input
+          type='string'
+          required
+          className='outline-none'
+          placeholder='Username'
+          onChange={event => {
+            setUsername(event.currentTarget.value)
+          }}
+        ></input>
+      </div>
+      <div className='p-4 rounded-lg focus-within:drop-shadow-lg border-2 bg-white flex gap-2'>
+        <PasswordIcon />
+        <input
+          type='password'
+          required
+          className='outline-none'
+          placeholder='Password'
+          onChange={event => {
+            setPassword(event.currentTarget.value)
+          }}
+        ></input>
+      </div>
+      <button type='submit' className='rounded-xl px-8 py-2 mt-8 bg-[#7ec9a1]'>
+        Login
+      </button>
     </form>
   )
 }
