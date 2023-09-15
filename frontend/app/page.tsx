@@ -10,7 +10,7 @@ export default function Home() {
         <h1 className='text-5xl font-bold'>Login</h1>
         <LoginForm />
         <p className='text-neutral-500'>
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link href={'/signup'} className='font-bold text-[#7ec9a1]'>
             Sign Up
           </Link>
