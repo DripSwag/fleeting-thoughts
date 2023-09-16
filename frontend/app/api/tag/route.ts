@@ -1,4 +1,5 @@
 import { cookies } from '@/node_modules/next/headers'
+import { NextResponse } from '@/node_modules/next/server'
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -13,7 +14,9 @@ export async function POST(request: Request) {
     body: JSON.stringify(body),
   })
 
-  return response
+  return NextResponse.json((await response.json()) || {}, {
+    status: response.status,
+  })
 }
 
 export async function PATCH(request: Request) {
@@ -29,7 +32,9 @@ export async function PATCH(request: Request) {
     body: JSON.stringify(body),
   })
 
-  return response
+  return NextResponse.json((await response.json()) || {}, {
+    status: response.status,
+  })
 }
 
 export async function DELETE(request: Request) {
@@ -45,7 +50,9 @@ export async function DELETE(request: Request) {
     body: JSON.stringify(body),
   })
 
-  return response
+  return NextResponse.json((await response.json()) || {}, {
+    status: response.status,
+  })
 }
 
 export async function GET(request: Request) {
@@ -63,5 +70,7 @@ export async function GET(request: Request) {
     },
   )
 
-  return response
+  return NextResponse.json((await response.json()) || {}, {
+    status: response.status,
+  })
 }

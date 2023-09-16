@@ -1,3 +1,5 @@
+import { NextResponse } from '@/node_modules/next/server'
+
 export async function POST(request: Request) {
   const response = await fetch(process.env.API_ORIGIN + '/login', {
     method: 'POST',
@@ -6,5 +8,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify(await request.json()),
   })
-  return response
+  return NextResponse.json((await response.json()) || {}, {
+    status: response.status,
+  })
 }

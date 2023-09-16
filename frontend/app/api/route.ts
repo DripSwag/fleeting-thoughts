@@ -1,5 +1,4 @@
 import { cookies } from '@/node_modules/next/headers'
-import { redirect } from '@/node_modules/next/navigation'
 import { NextResponse } from '@/node_modules/next/server'
 
 interface RequestBody {
@@ -25,7 +24,6 @@ export async function PUT(request: Request) {
     },
     body: JSON.stringify(body),
   })
-  console.log(response)
   if (response.status === 200) {
     const cookieStore = cookies()
     const details: DetailsBody = await response.json()
@@ -34,9 +32,9 @@ export async function PUT(request: Request) {
     })
     cookieStore.set('userId', details.id.toString())
     return NextResponse.json(details)
-  } else if (response.status === 204) {
-    return new Response(null, { status: 204 })
   } else {
-    return NextResponse.json({ Message: 'error' }, { status: 500 })
+    return NextResponse.json((await response.json()) || {}, {
+      status: response.status,
+    })
   }
 }

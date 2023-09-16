@@ -11,7 +11,6 @@ async function getThoughtsDatabase(tags: Array<string>) {
   const response = await fetch(
     'api/homepage' + `?userId=${Cookies.get('userId') || '0'}` + queryString,
   )
-
   return response
 }
 
