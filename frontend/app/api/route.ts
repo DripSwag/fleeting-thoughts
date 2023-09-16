@@ -16,14 +16,9 @@ interface DetailsBody {
   }
 }
 
-const url =
-  process.env.NODE_ENV === 'development'
-    ? process.env.API_ORIGIN
-    : 'https://' + process.env.VERCEL_URL
-
 export async function PUT(request: Request) {
   const body: RequestBody = await request.json()
-  const response = await fetch(url + '/login', {
+  const response = await fetch(process.env.API_ORIGIN + '/login', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
